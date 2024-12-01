@@ -1,5 +1,3 @@
-use std::iter::zip;
-
 fn main() {
     let input = include_str!("../inputs/day1.txt");
 
@@ -11,13 +9,10 @@ fn main() {
 }
 
 fn part_one(input: &str) -> usize {
-    let mut a: Vec<isize> = vec![];
-    let mut b: Vec<isize> = vec![];
+    let mut a: Vec<i32> = vec![];
+    let mut b: Vec<i32> = vec![];
 
-    for line in input.split("\n") {
-        if line == "" {
-            break;
-        }
+    for line in input.lines() {
         let mut nums = line.split_whitespace();
         a.push(nums.next().unwrap().parse().unwrap());
         b.push(nums.next().unwrap().parse().unwrap());
@@ -28,8 +23,8 @@ fn part_one(input: &str) -> usize {
 
     a.iter()
         .zip(b.iter())
-        .map(|(a, b)| (a - b).abs())
-        .fold(0, |i, x| i + (x as usize))
+        .map(|(a, b)| (a - b).abs() as usize)
+        .sum()
 }
 
 fn part_two(input: &str) -> usize {
@@ -47,5 +42,5 @@ fn part_two(input: &str) -> usize {
 
     a.iter()
         .map(|i| b.iter().filter(|&n| n == i).count() * i)
-        .fold(0, |i, x| i + x)
+        .sum()
 }
