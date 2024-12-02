@@ -16,7 +16,7 @@ fn part_one(input: &str) -> usize {
                 .map(|c| c.parse().unwrap())
                 .collect::<Vec<i32>>()
         })
-        .filter(|l| is_valid(l.to_vec()))
+        .filter(|l| is_valid(l))
         .count()
 }
 
@@ -30,11 +30,11 @@ fn part_two(input: &str) -> usize {
         })
         .filter(|l| {
             let len = l.len();
-            if !is_valid(l.to_vec()) {
+            if !is_valid(l) {
                 for i in 0..len {
                     let mut list = l.clone();
                     list.remove(i);
-                    if is_valid(list) {
+                    if is_valid(&list) {
                         return true;
                     }
                 }
@@ -45,7 +45,7 @@ fn part_two(input: &str) -> usize {
         .count()
 }
 
-fn is_valid(line: Vec<i32>) -> bool {
+fn is_valid(line: &Vec<i32>) -> bool {
     (line.windows(2).all(|l| l[0] < l[1]) || line.windows(2).all(|l| l[0] > l[1]))
         && line.windows(2).all(|l| (l[0] - l[1]).abs() <= 3)
 }
